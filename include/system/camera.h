@@ -99,9 +99,12 @@ enum {
     CAMERA_MSG_FOCUS_MOVE = 0x1000,       // notifyCallback
 #else
     CAMERA_MSG_FOCUS_MOVE = 0x0800,       // notifyCallback
+#endif
 #ifdef QCOM_HARDWARE
     CAMERA_MSG_STATS_DATA       = 0x1000,
 #endif
+#ifdef OMAP_ENHANCEMENT_BURST_CAPTURE
+    CAMERA_MSG_COMPRESSED_BURST_IMAGE = 0x1000, // dataCallback
 #endif
     CAMERA_MSG_ALL_MSGS = 0xFFFF
 };
