@@ -22,6 +22,9 @@
 #include <string.h>
 #include <stddef.h>
 #include <ctype.h>
+#ifdef USE_MOTOROLA_CODE
+#include <sys/stat.h>
+#endif
 
 #include "init.h"
 #include "parser.h"
@@ -364,7 +367,11 @@ void queue_property_triggers(const char *name, const char *value)
     }
 }
 
+#ifdef USE_MOTOROLA_CODE
+void queue_all_property_triggers(void)
+#else
 void queue_all_property_triggers()
+#endif
 {
     struct listnode *node;
     struct action *act;
