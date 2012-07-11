@@ -107,7 +107,6 @@ struct {
     { "persist.service.", AID_SYSTEM,   0 },
     { "persist.service.", AID_RADIO,    0 },
     { "persist.security.",AID_SYSTEM,   0 },
-<<<<<<< HEAD
 #ifdef USE_MOTOROLA_USERS
     // Motorola, w18335, 12-May-2011, IKTCMD-212
     { "tcmd.",            AID_MOT_TCMD, AID_MOT_WHISPER },
