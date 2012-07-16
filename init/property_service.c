@@ -61,7 +61,7 @@ struct {
     unsigned int uid;
     unsigned int gid;
 } property_perms[] = {
-#ifdef USE_MOTOROLA_USERS
+#if defined(MOTOROLA_UIDS)
     { "net.caif0.",       AID_RADIO,    0 },
     { "net.usb0.",        AID_RADIO,    0 },
     { "net.usb1.",        AID_RADIO,    0 },
@@ -70,7 +70,7 @@ struct {
     { "net.qmi2.",        AID_RADIO,    0 },
 #endif
     { "net.rmnet",        AID_RADIO,    0 },
-#ifdef USE_MOTOROLA_USERS
+#if defined(MOTOROLA_UIDS)
     { "net.rmnet0.",      AID_RADIO,    0 },
     { "net.gannet0.",     AID_RADIO,    0 },
 #endif
@@ -83,7 +83,7 @@ struct {
     { "gsm.",             AID_RADIO,    0 },
     { "persist.radio",    AID_RADIO,    0 },
     { "net.dns",          AID_RADIO,    0 },
-#ifdef USE_MOTOROLA_USERS
+#if defined(MOTOROLA_UIDS)
     { "net.dns",          AID_DHCP,     0 },
     { "serialno",         AID_RADIO,    0 },
     { "radio.",           AID_RADIO,    0 },
@@ -107,7 +107,7 @@ struct {
     { "persist.service.", AID_SYSTEM,   0 },
     { "persist.service.", AID_RADIO,    0 },
     { "persist.security.",AID_SYSTEM,   0 },
-#ifdef USE_MOTOROLA_USERS
+#if defined(MOTOROLA_UIDS)
     // Motorola, w18335, 12-May-2011, IKTCMD-212
     { "tcmd.",            AID_MOT_TCMD, AID_MOT_WHISPER },
     { "persist.mot.proximity.", AID_RADIO, 0},
@@ -153,7 +153,7 @@ struct {
     unsigned int gid;
 } control_perms[] = {
     { "dumpstate",AID_SHELL, AID_LOG },
-#ifdef USE_MOTOROLA_USERS
+#if defined(MOTOROLA_UIDS)
     { "hciattach", AID_MOT_TCMD, AID_MOT_TCMD },
     { "bluetoothd",AID_MOT_TCMD, AID_MOT_TCMD },
     { "whisperd", AID_MOT_TCMD, AID_MOT_TCMD },
