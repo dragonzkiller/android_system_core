@@ -292,6 +292,9 @@ typedef enum {
     AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET         = 0x1000,
     AUDIO_DEVICE_OUT_USB_ACCESSORY             = 0x2000,
     AUDIO_DEVICE_OUT_USB_DEVICE                = 0x4000,
+#ifdef OMAP_ENHANCEMENT
+    AUDIO_DEVICE_OUT_FM_RADIO_TX               = 0x20000000,
+#endif
     AUDIO_DEVICE_OUT_DEFAULT                   = 0x8000,
     AUDIO_DEVICE_OUT_ALL      = (AUDIO_DEVICE_OUT_EARPIECE |
                                  AUDIO_DEVICE_OUT_SPEAKER |
@@ -308,6 +311,9 @@ typedef enum {
                                  AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET |
                                  AUDIO_DEVICE_OUT_USB_ACCESSORY |
                                  AUDIO_DEVICE_OUT_USB_DEVICE |
+#ifdef OMAP_ENHANCEMENT
+                                 AUDIO_DEVICE_OUT_FM_RADIO_TX |
+#endif
                                  AUDIO_DEVICE_OUT_DEFAULT),
     AUDIO_DEVICE_OUT_ALL_A2DP = (AUDIO_DEVICE_OUT_BLUETOOTH_A2DP |
                                  AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES |
