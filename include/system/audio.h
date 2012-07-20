@@ -63,6 +63,9 @@ typedef enum {
     AUDIO_SOURCE_CAMCORDER           = 5,
     AUDIO_SOURCE_VOICE_RECOGNITION   = 6,
     AUDIO_SOURCE_VOICE_COMMUNICATION = 7,
+#ifdef OMAP_ENHANCEMENT
+    AUDIO_SOURCE_FM_RADIO_RX         = 8,
+#endif
 
     AUDIO_SOURCE_CNT,
     AUDIO_SOURCE_MAX                 = AUDIO_SOURCE_CNT - 1,
@@ -333,6 +336,9 @@ typedef enum {
     AUDIO_DEVICE_IN_AUX_DIGITAL           = 0x200000,
     AUDIO_DEVICE_IN_VOICE_CALL            = 0x400000,
     AUDIO_DEVICE_IN_BACK_MIC              = 0x800000,
+#ifdef OMAP_ENHANCEMENT
+    AUDIO_DEVICE_IN_FM_RADIO_RX           = 0x2000000,
+#endif
     AUDIO_DEVICE_IN_DEFAULT               = 0x80000000,
 
     AUDIO_DEVICE_IN_ALL     = (AUDIO_DEVICE_IN_COMMUNICATION |
@@ -343,6 +349,9 @@ typedef enum {
                                AUDIO_DEVICE_IN_AUX_DIGITAL |
                                AUDIO_DEVICE_IN_VOICE_CALL |
                                AUDIO_DEVICE_IN_BACK_MIC |
+#ifdef OMAP_ENHANCEMENT
+                               AUDIO_DEVICE_IN_FM_RADIO_RX |
+#endif
                                AUDIO_DEVICE_IN_DEFAULT),
     AUDIO_DEVICE_IN_ALL_SCO = AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET,
 } audio_devices_t;
