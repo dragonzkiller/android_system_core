@@ -862,8 +862,8 @@ try_loading_again:
     fw_fd = open(file1, O_RDONLY);
     if(fw_fd < 0) {
 #ifdef USE_MOTOROLA_CODE
-        INFO("firmware: Could not open firmware file\n");
-        write(loading_fd, "-1", 2); /* abort transfer */
+        INFO("firmware: Could not open  firmware file\n");
+        //write(loading_fd, "-1", 2); /* abort transfer */
 #endif
         fw_fd = open(file2, O_RDONLY);
         if (fw_fd < 0) {
