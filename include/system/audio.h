@@ -337,6 +337,7 @@ typedef enum {
     AUDIO_DEVICE_IN_VOICE_CALL            = 0x400000,
     AUDIO_DEVICE_IN_BACK_MIC              = 0x800000,
 #ifdef OMAP_ENHANCEMENT
+    AUDIO_DEVICE_IN_USB_HEADSET           = 0x1000000,
     AUDIO_DEVICE_IN_FM_RADIO_RX           = 0x2000000,
 #endif
     AUDIO_DEVICE_IN_DEFAULT               = 0x80000000,
@@ -350,6 +351,7 @@ typedef enum {
                                AUDIO_DEVICE_IN_VOICE_CALL |
                                AUDIO_DEVICE_IN_BACK_MIC |
 #ifdef OMAP_ENHANCEMENT
+                               AUDIO_DEVICE_IN_USB_HEADSET |
                                AUDIO_DEVICE_IN_FM_RADIO_RX |
 #endif
                                AUDIO_DEVICE_IN_DEFAULT),
