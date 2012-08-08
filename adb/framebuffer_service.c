@@ -20,6 +20,12 @@
 #include <string.h>
 #include <fcntl.h>
 
+#ifdef OMAP_ENHANCEMENT
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#endif	/* OMAP_ENHANCEMENT */
+
 #include "fdevent.h"
 #include "adb.h"
 
@@ -169,6 +175,10 @@ void framebuffer_service(int fd, void *cookie)
     if(writex(fd, buf, fbinfo.size % sizeof(buf))) goto done;
 
 done:
+#ifdef OMAP_ENHANCEMENT
+    TEMP_FAILURE_RETRY(waitpid(pid, NULL, 0));
+#endif	/* OMAP_ENHANCEMENT */
+
     close(fds[0]);
     close(fds[1]);
     close(fd);

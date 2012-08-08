@@ -75,10 +75,9 @@ struct uevent {
     const char *subsystem;
     const char *firmware;
     const char *partition_name;
-#ifdef USE_MOTOROLA_CODE
-    const char *country;
-#endif
     const char *device_name;
+    const char *country;
+    const char *modalias;
     int partition_num;
     int major;
     int minor;
@@ -356,9 +355,8 @@ static void parse_event(const char *msg, struct uevent *uevent)
     uevent->path = "";
     uevent->subsystem = "";
     uevent->firmware = "";
-#ifdef USE_MOTOROLA_CODE
     uevent->country = "";
-#endif
+    uevent->modalias = "";
     uevent->major = -1;
     uevent->minor = -1;
     uevent->partition_name = NULL;
@@ -399,6 +397,12 @@ static void parse_event(const char *msg, struct uevent *uevent)
         } else if(!strncmp(msg, "DEVNAME=", 8)) {
             msg += 8;
             uevent->device_name = msg;
+        } else if (!strncmp(msg, "COUNTRY=", 8)) {
+            msg += 8;
+            uevent->country = msg;
+        } else if (!strncmp(msg, "MODALIAS=", 9)) {
+            msg += 9;
+            uevent->modalias = msg;
         }
 
         /* advance to after the next \0 */
@@ -406,18 +410,11 @@ static void parse_event(const char *msg, struct uevent *uevent)
             ;
     }
 
-#ifdef USE_MOTOROLA_CODE
-    log_event_print("event { '%s', '%s', '%s', '%s', %d, %d, '%s' }\n",
+    log_event_print("event { '%s', '%s', '%s', '%s', %d, %d, '%s', '%s'}\n",
                     uevent->action, uevent->path, uevent->subsystem,
                     uevent->firmware, uevent->major, uevent->minor,
-                    uevent->country);
+                    uevent->country, uevent->modalias);
 }
-#else
-    log_event_print("event { '%s', '%s', '%s', '%s', %d, %d }\n",
-                    uevent->action, uevent->path, uevent->subsystem,
-                    uevent->firmware, uevent->major, uevent->minor);
-}
-#endif
 
 static char **get_character_device_symlinks(struct uevent *uevent)
 {
@@ -919,6 +916,9 @@ static void handle_crda_event(struct uevent *uevent)
         return;
 
     if(strcmp(uevent->action, "change"))
+        return;
+
+    if(strcmp(uevent->modalias, "platform:regulatory"))
         return;
 
     log_event_print("executing CRDA country=%s\n", uevent->country);
