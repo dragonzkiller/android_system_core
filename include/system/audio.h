@@ -46,6 +46,9 @@ typedef enum {
     AUDIO_STREAM_ENFORCED_AUDIBLE = 7, /* Sounds that cannot be muted by user and must be routed to speaker */
     AUDIO_STREAM_DTMF             = 8,
     AUDIO_STREAM_TTS              = 9,
+#ifdef QCOM_FM_ENABLED
+    AUDIO_STREAM_FM               = 10,
+#endif
 
     AUDIO_STREAM_CNT,
     AUDIO_STREAM_MAX              = AUDIO_STREAM_CNT - 1,
@@ -65,6 +68,10 @@ typedef enum {
     AUDIO_SOURCE_VOICE_COMMUNICATION = 7,
 #ifdef OMAP_ENHANCEMENT
     AUDIO_SOURCE_FM_RADIO_RX         = 8,
+#endif
+#ifdef QCOM_FM_ENABLED
+    AUDIO_SOURCE_FM_RX               = 8,
+    AUDIO_SOURCE_FM_RX_A2DP          = 9,
 #endif
 
     AUDIO_SOURCE_CNT,
@@ -304,7 +311,13 @@ typedef enum {
 #ifdef OMAP_ENHANCEMENT
     AUDIO_DEVICE_OUT_FM_RADIO_TX               = 0x20000000,
 #endif
+#ifdef QCOM_FM_ENABLED
+    AUDIO_DEVICE_OUT_FM                        = 0x8000,
+    AUDIO_DEVICE_OUT_FM_TX                     = 0x10000,
+    AUDIO_DEVICE_OUT_DEFAULT                   = 0x80000,
+#else
     AUDIO_DEVICE_OUT_DEFAULT                   = 0x8000,
+#endif
     AUDIO_DEVICE_OUT_ALL      = (AUDIO_DEVICE_OUT_EARPIECE |
                                  AUDIO_DEVICE_OUT_SPEAKER |
                                  AUDIO_DEVICE_OUT_WIRED_HEADSET |
@@ -329,6 +342,10 @@ typedef enum {
 #ifdef OMAP_ENHANCEMENT
                                  AUDIO_DEVICE_OUT_FM_RADIO_TX |
 #endif
+#ifdef QCOM_FM_ENABLED
+                                 AUDIO_DEVICE_OUT_FM |
+                                 AUDIO_DEVICE_OUT_FM_TX |
+#endif
                                  AUDIO_DEVICE_OUT_DEFAULT),
     AUDIO_DEVICE_OUT_ALL_A2DP = (AUDIO_DEVICE_OUT_BLUETOOTH_A2DP |
                                  AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES |
@@ -340,6 +357,20 @@ typedef enum {
                                  AUDIO_DEVICE_OUT_USB_DEVICE),
 
     /* input devices */
+#ifdef QCOM_HARDWARE
+    AUDIO_DEVICE_IN_COMMUNICATION         = 0x100000,
+    AUDIO_DEVICE_IN_AMBIENT               = 0x200000,
+    AUDIO_DEVICE_IN_BUILTIN_MIC           = 0x400000,
+    AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET = 0x800000,
+    AUDIO_DEVICE_IN_WIRED_HEADSET         = 0x1000000,
+    AUDIO_DEVICE_IN_AUX_DIGITAL           = 0x2000000,
+    AUDIO_DEVICE_IN_VOICE_CALL            = 0x4000000,
+    AUDIO_DEVICE_IN_BACK_MIC              = 0x8000000,
+#ifdef QCOM_FM_ENABLED
+    AUDIO_DEVICE_IN_FM_RX                 = 0x20000000,
+    AUDIO_DEVICE_IN_FM_RX_A2DP            = 0x40000000,
+#endif
+#else
     AUDIO_DEVICE_IN_COMMUNICATION         = 0x10000,
     AUDIO_DEVICE_IN_AMBIENT               = 0x20000,
     AUDIO_DEVICE_IN_BUILTIN_MIC           = 0x40000,
@@ -348,6 +379,7 @@ typedef enum {
     AUDIO_DEVICE_IN_AUX_DIGITAL           = 0x200000,
     AUDIO_DEVICE_IN_VOICE_CALL            = 0x400000,
     AUDIO_DEVICE_IN_BACK_MIC              = 0x800000,
+#endif
 #ifdef USE_MOTOROLA_CODE
     // BEGIN Motorola e11237 IKMMINTG-261 USB audio support
     AUDIO_DEVICE_IN_EXT_USB_MIC           = 0x1000000,
@@ -377,6 +409,10 @@ typedef enum {
 #ifdef OMAP_ENHANCEMENT
                                AUDIO_DEVICE_IN_USB_HEADSET |
                                AUDIO_DEVICE_IN_FM_RADIO_RX |
+#endif
+#ifdef QCOM_FM_ENABLED
+                               AUDIO_DEVICE_IN_FM_RX |
+                               AUDIO_DEVICE_IN_FM_RX_A2DP |
 #endif
                                AUDIO_DEVICE_IN_DEFAULT),
     AUDIO_DEVICE_IN_ALL_SCO = AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET,
