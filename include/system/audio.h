@@ -416,7 +416,6 @@ typedef enum {
     AUDIO_DEVICE_IN_AUX_DIGITAL           = 0x200000,
     AUDIO_DEVICE_IN_VOICE_CALL            = 0x400000,
     AUDIO_DEVICE_IN_BACK_MIC              = 0x800000,
-#endif
 #ifdef USE_MOTOROLA_CODE
     // BEGIN Motorola e11237 IKMMINTG-261 USB audio support
     AUDIO_DEVICE_IN_EXT_USB_MIC           = 0x1000000,
