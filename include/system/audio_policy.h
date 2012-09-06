@@ -29,6 +29,15 @@ __BEGIN_DECLS
 /* The enums were moved here mostly from
  * frameworks/base/include/media/AudioSystem.h
  */
+#ifdef QCOM_HARDWARE
+/* request to open a direct output with get_output() (by opposition to
+ * sharing an output with other AudioTracks)
+ */
+typedef enum {
+    AUDIO_POLICY_OUTPUT_FLAG_INDIRECT = 0x0,
+    AUDIO_POLICY_OUTPUT_FLAG_DIRECT = 0x1
+} audio_policy_output_flags_t;
+#endif
 
 #ifdef USE_MOTOROLA_CODE
 /* request to open a direct output with get_output() (by opposition to
