@@ -389,11 +389,6 @@ static void parse_event(const char *msg, struct uevent *uevent)
         } else if(!strncmp(msg, "PARTNAME=", 9)) {
             msg += 9;
             uevent->partition_name = msg;
-#ifdef USE_MOTOROLA_CODE
-        } else if (!strncmp(msg, "COUNTRY=", 8)) {
-            msg += 8;
-            uevent->country = msg;
-#endif
         } else if(!strncmp(msg, "DEVNAME=", 8)) {
             msg += 8;
             uevent->device_name = msg;
