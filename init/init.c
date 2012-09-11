@@ -744,7 +744,9 @@ static void export_kernel_boot_props(void)
         const char *dest_prop;
         const char *def_val;
     } prop_map[] = {
+#ifndef USE_MOTOROLA_CODE
         { "ro.boot.serialno", "ro.serialno", "", },
+#endif
         { "ro.boot.mode", "ro.bootmode", "unknown", },
         { "ro.boot.baseband", "ro.baseband", "unknown", },
         { "ro.boot.bootloader", "ro.bootloader", "unknown", },
@@ -997,6 +999,11 @@ int main(int argc, char **argv)
          * together in the initramdisk on / and then we'll
          * let the rc file figure out the rest.
          */
+    /* Don't repeat the setup of these filesystems,
+     * it creates double mount points with an unknown effect
+     * on the system.  This init file is for 2nd-init anyway.
+     */
+#ifndef BOARD_HAS_LOCKED_BOOTLOADER
     mkdir("/dev", 0755);
     mkdir("/proc", 0755);
     mkdir("/sys", 0755);
@@ -1019,6 +1026,7 @@ int main(int argc, char **argv)
          */
     open_devnull_stdio();
     klog_init();
+#endif
     property_init();
 
     get_hardware_name(hardware, &revision);
