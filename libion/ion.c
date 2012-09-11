@@ -80,8 +80,10 @@ int ion_alloc_tiler(int fd, size_t w, size_t h, int fmt, unsigned int flags,
                 .h = h,
                 .fmt = fmt,
                 .flags = flags,
+#ifdef BOARD_USES_KEXEC
                 .out_align = PAGE_SIZE,
                 .token = 0,
+#endif
         };
 
         struct ion_custom_data custom_data = {
@@ -156,6 +158,7 @@ int ion_import(int fd, int share_fd, struct ion_handle **handle)
         return ret;
 }
 
+#ifdef BOARD_USES_KEXEC
 int ion_map_cacheable(int fd, struct ion_handle *handle, size_t length, int prot,
             int flags, off_t offset, unsigned char **ptr, int *map_fd)
 {
@@ -200,3 +203,5 @@ int ion_inval_cached(int fd, struct ion_handle *handle, size_t length,
         };
         return ion_ioctl(fd, ION_IOC_INVAL_CACHED, &data);
 }
+#endif
+
