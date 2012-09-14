@@ -262,6 +262,9 @@ enum {
     NATIVE_WINDOW_ADD_BUFFER_SLOT           = 257,
 #endif
     NATIVE_WINDOW_SET_BUFFERS_SIZE          = 17,   /* private */
+#ifdef QCOM_HARDWARE
+    NATIVE_WINDOW_UPDATE_BUFFERS_GEOMETRY   = 18,   /* private */
+#endif
 };
 
 /* parameter for NATIVE_WINDOW_[API_][DIS]CONNECT */
