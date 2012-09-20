@@ -41,6 +41,9 @@
 #define   TRACE_TAG  TRACE_USB
 #include "adb.h"
 
+#ifndef USB_DT_SS_ENDPOINT_COMP
+#define USB_DT_SS_ENDPOINT_COMP 0x30
+#endif
 
 /* usb scan debugging is waaaay too verbose */
 #define DBGX(x...)
