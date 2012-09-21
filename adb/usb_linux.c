@@ -44,6 +44,9 @@
 #ifndef USB_DT_SS_ENDPOINT_COMP
 #define USB_DT_SS_ENDPOINT_COMP 0x30
 #endif
+#ifndef USB_DT_SS_EP_COMP_SIZE
+#define USB_DT_SS_EP_COMP_SIZE 6
+#endif
 
 /* usb scan debugging is waaaay too verbose */
 #define DBGX(x...)
