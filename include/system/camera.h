@@ -97,11 +97,21 @@ enum {
 #if defined(QCOM_ICS_COMPAT) && defined(QCOM_HARDWARE)
     CAMERA_MSG_STATS_DATA       = 0x800,
     CAMERA_MSG_FOCUS_MOVE = 0x1000,       // notifyCallback
+#elif defined(OMAP_ICS_CAMERA) && defined(OMAP_ENHANCEMENT)
+    CAMERA_MSG_COMPRESSED_BURST_IMAGE = 0x0800, //dataCallback
+    CAMERA_MSG_RAW_BURST = 0x1000,        // dataCallback
 #else
     CAMERA_MSG_FOCUS_MOVE = 0x0800,       // notifyCallback
+#endif
 #ifdef QCOM_HARDWARE
     CAMERA_MSG_STATS_DATA       = 0x1000,
+#elif defined(OMAP_ENHANCEMENT) && defined(OMAP_ENHANCEMENT_BURST_CAPTURE)
+    CAMERA_MSG_COMPRESSED_BURST_IMAGE = 0x1000, // dataCallback
+    CAMERA_MSG_RAW_BURST = 0x2000,        // dataCallback
 #endif
+#ifdef OMAP_ENHANCEMENT_BURST_CAPTURE
+    CAMERA_MSG_COMPRESSED_BURST_IMAGE = 0x1000, // dataCallback
+    CAMERA_MSG_RAW_BURST = 0x2000,        // dataCallback
 #endif
     CAMERA_MSG_ALL_MSGS = 0xFFFF
 };
@@ -194,6 +204,29 @@ enum {
 #endif
 #endif
 
+#ifdef OMAP_ENHANCEMENT_VTC
+    /**
+     * Camera Preview deinitialization.
+     * This is a TI enhancement for supporting tunneling during VTC.
+     * This command causes the camera component to move from loaded to idle state.
+     */
+    CAMERA_CMD_PREVIEW_INITIALIZATION = 256,
+
+    /**
+     * Camera Preview initialization.
+     * This is a TI enhancement for supporting tunneling during VTC.
+     * This command causes the camera component to move from executing to idle state.
+     */
+    CAMERA_CMD_PREVIEW_DEINITIALIZATION = 257,
+#endif
+
+#ifdef OMAP_ENHANCEMENT
+    /**
+     * Extend camera_device_ops_t with extra callbacks.
+     * The arg1 and arg2 arguments should form pointer to camera_device_extended_ops_t.
+     */
+    CAMERA_CMD_SETUP_EXTENDED_OPERATIONS = 1024,
+#endif
 };
 
 /** camera fatal errors */
@@ -299,6 +332,18 @@ typedef struct camera_frame_metadata {
      * An array of the detected faces. The length is number_of_faces.
      */
     camera_face_t *faces;
+
+#ifdef OMAP_ENHANCEMENT_CPCAM
+    /**
+     * Exposure time in microseconds
+     */
+    int32_t exposure_time;
+
+    /**
+     * Analog gain (EV * 100)
+     */
+    int32_t analog_gain;
+#endif
 } camera_frame_metadata_t;
 
 __END_DECLS

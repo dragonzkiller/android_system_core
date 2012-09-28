@@ -253,6 +253,14 @@ enum {
     NATIVE_WINDOW_API_DISCONNECT            = 14,   /* private */
     NATIVE_WINDOW_SET_BUFFERS_USER_DIMENSIONS = 15, /* private */
     NATIVE_WINDOW_SET_POST_TRANSFORM_CROP   = 16,   /* private */
+#ifdef OMAP_ENHANCEMENT
+    NATIVE_WINDOW_SET_BUFFERS_LAYOUT        = 254,
+#endif
+#ifdef OMAP_ENHANCEMENT_CPCAM
+    NATIVE_WINDOW_UPDATE_AND_GET_CURRENT    = 255,
+    NATIVE_WINDOW_SET_BUFFERS_METADATA      = 256,
+    NATIVE_WINDOW_ADD_BUFFER_SLOT           = 257,
+#endif
     NATIVE_WINDOW_SET_BUFFERS_SIZE          = 17,   /* private */
 #ifdef QCOM_HARDWARE
     NATIVE_WINDOW_UPDATE_BUFFERS_GEOMETRY   = 18,   /* private */
@@ -334,17 +342,17 @@ enum {
     /* Buffer Layout: Progressive */
     NATIVE_WINDOW_BUFFERS_LAYOUT_PROGRESSIVE              = 0x00,
     /* Buffer Layout: Interleaveframe Top field First*/
-     NATIVE_WINDOW_BUFFERS_LAYOUT_INTERLEAVE_TOP_FIRST    = 0x01,
+    NATIVE_WINDOW_BUFFERS_LAYOUT_INTERLEAVE_TOP_FIRST    = 0x01,
     /* Buffer Layout: Interleaveframe Bottom field First*/
-     NATIVE_WINDOW_BUFFERS_LAYOUT_INTERLEAVE_BOTTOM_FIRST = 0x02,
+    NATIVE_WINDOW_BUFFERS_LAYOUT_INTERLEAVE_BOTTOM_FIRST = 0x02,
     /* Buffer Layout: Noninterleave Top Field First */
-     NATIVE_WINDOW_BUFFERS_LAYOUT_TOP_FIRST               = 0x04,
+    NATIVE_WINDOW_BUFFERS_LAYOUT_TOP_FIRST               = 0x04,
     /* Buffer Layout: Noninterleave Bottom Field First*/
-     NATIVE_WINDOW_BUFFERS_LAYOUT_BOTTOM_FIRST            = 0x08,
+    NATIVE_WINDOW_BUFFERS_LAYOUT_BOTTOM_FIRST            = 0x08,
     /* Buffer Layout: Only Top Field */
-     NATIVE_WINDOW_BUFFERS_LAYOUT_TOP_ONLY                = 0x10,
+    NATIVE_WINDOW_BUFFERS_LAYOUT_TOP_ONLY                = 0x10,
     /* Buffer Layout: Only Bottom Field*/
-     NATIVE_WINDOW_BUFFERS_LAYOUT_BOTTOM_ONLY             = 0x20,
+    NATIVE_WINDOW_BUFFERS_LAYOUT_BOTTOM_ONLY             = 0x20,
 };
 #endif
 
@@ -474,6 +482,7 @@ struct ANativeWindow
      *     NATIVE_WINDOW_API_DISCONNECT         (private)
      *     NATIVE_WINDOW_SET_BUFFERS_USER_DIMENSIONS (private)
      *     NATIVE_WINDOW_SET_POST_TRANSFORM_CROP (private)
+     *     NATIVE_WINDOW_SET_BUFFERS_LAYOUT
      *
      */
 
@@ -707,6 +716,21 @@ static inline int native_window_set_buffers_timestamp(
     return window->perform(window, NATIVE_WINDOW_SET_BUFFERS_TIMESTAMP,
             timestamp);
 }
+
+#ifdef OMAP_ENHANCEMENT_CPCAM
+/*
+ * native_window_set_buffers_metadata(..., void *data)
+ * frames queued after this call will be associated with this set of
+ * metadata.
+ */
+static inline int native_window_set_buffers_metadata(
+        struct ANativeWindow* window,
+        void *data)
+{
+    return window->perform(window, NATIVE_WINDOW_SET_BUFFERS_METADATA,
+            data);
+}
+#endif
 
 /*
  * native_window_set_scaling_mode(..., int mode)

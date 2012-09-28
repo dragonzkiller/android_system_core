@@ -67,6 +67,9 @@ typedef enum {
     AUDIO_SOURCE_CAMCORDER           = 5,
     AUDIO_SOURCE_VOICE_RECOGNITION   = 6,
     AUDIO_SOURCE_VOICE_COMMUNICATION = 7,
+#ifdef OMAP_ENHANCEMENT
+    AUDIO_SOURCE_FM_RADIO_RX         = 8,
+#endif
 #ifdef QCOM_FM_ENABLED
     AUDIO_SOURCE_FM_RX               = 8,
     AUDIO_SOURCE_FM_RX_A2DP          = 9,
@@ -355,6 +358,9 @@ typedef enum {
 #endif
     AUDIO_DEVICE_OUT_USB_ACCESSORY             = 0x2000,
     AUDIO_DEVICE_OUT_USB_DEVICE                = 0x4000,
+#ifdef OMAP_ENHANCEMENT
+    AUDIO_DEVICE_OUT_FM_RADIO_TX               = 0x20000000,
+#endif
 #ifdef QCOM_FM_ENABLED
     AUDIO_DEVICE_OUT_FM                        = 0x8000,
     AUDIO_DEVICE_OUT_FM_TX                     = 0x10000,
@@ -386,6 +392,9 @@ typedef enum {
 #endif
                                  AUDIO_DEVICE_OUT_USB_ACCESSORY |
                                  AUDIO_DEVICE_OUT_USB_DEVICE |
+#ifdef OMAP_ENHANCEMENT
+                                 AUDIO_DEVICE_OUT_FM_RADIO_TX |
+#endif
 #ifdef QCOM_FM_ENABLED
                                  AUDIO_DEVICE_OUT_FM |
                                  AUDIO_DEVICE_OUT_FM_TX |
@@ -434,6 +443,10 @@ typedef enum {
     AUDIO_DEVICE_IN_DOCK_USB_MIC          = 0x2000000,
     // END IKMMINTG-261
 #endif
+#ifdef OMAP_ENHANCEMENT
+    AUDIO_DEVICE_IN_USB_HEADSET           = 0x10000000,
+    AUDIO_DEVICE_IN_FM_RADIO_RX           = 0x20000000,
+#endif
     AUDIO_DEVICE_IN_DEFAULT               = 0x80000000,
 #endif
 
@@ -450,6 +463,11 @@ typedef enum {
                                AUDIO_DEVICE_IN_EXT_USB_MIC |
                                AUDIO_DEVICE_IN_DOCK_USB_MIC |
                                // END IKMMINTG-261
+#endif
+#ifdef OMAP_ENHANCEMENT
+                               AUDIO_DEVICE_IN_USB_HEADSET |
+                               AUDIO_DEVICE_IN_FM_RADIO_RX |
+#endif
 #ifdef QCOM_FM_ENABLED
                                AUDIO_DEVICE_IN_FM_RX |
                                AUDIO_DEVICE_IN_FM_RX_A2DP |

@@ -744,7 +744,9 @@ static void export_kernel_boot_props(void)
         const char *dest_prop;
         const char *def_val;
     } prop_map[] = {
+#ifndef USE_MOTOROLA_CODE
         { "ro.boot.serialno", "ro.serialno", "", },
+#endif
         { "ro.boot.mode", "ro.bootmode", "unknown", },
         { "ro.boot.baseband", "ro.baseband", "unknown", },
         { "ro.boot.bootloader", "ro.bootloader", "unknown", },
@@ -772,6 +774,7 @@ static void export_kernel_boot_props(void)
     snprintf(tmp, PROP_VALUE_MAX, "%d", revision);
     property_set("ro.revision", tmp);
     property_set("ro.emmc",emmc_boot ? "1" : "0");
+    property_set("ro.boot.emmc", emmc_boot ? "1" : "0");
 
     /* TODO: these are obsolete. We should delete them */
     if (!strcmp(bootmode,"factory"))
@@ -997,12 +1000,11 @@ int main(int argc, char **argv)
          * together in the initramdisk on / and then we'll
          * let the rc file figure out the rest.
          */
-        
-        /* On devices which 2nd-init being used, these are
-         * already set up by the original init so there is
-         * no need to set them up again.
-         */
-#ifdef BOARD_HAS_LOCKED_BOOTLOADER
+    /* Don't repeat the setup of these filesystems,
+     * it creates double mount points with an unknown effect
+     * on the system.  This init file is for 2nd-init anyway.
+     */
+#ifndef BOARD_HAS_LOCKED_BOOTLOADER
     mkdir("/dev", 0755);
     mkdir("/proc", 0755);
     mkdir("/sys", 0755);
@@ -1104,6 +1106,7 @@ int main(int argc, char **argv)
      * those now, after mounting the filesystems */
     if (strcmp(battchg_pause, BOARD_CHARGING_CMDLINE_VALUE) == 0)
         is_charger = 1;
+
 
     if (is_charger) {
 #endif

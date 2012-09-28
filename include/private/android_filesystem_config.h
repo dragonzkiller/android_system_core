@@ -63,6 +63,10 @@
 #define AID_NFC           1027  /* nfc subsystem */
 #define AID_SDCARD_R      1028  /* external storage read access */
 
+#ifdef OMAP_ENHANCEMENT
+#define AID_FMRADIO       1029  /* FM subsystem */
+#endif
+
 #define AID_SHELL         2000  /* adb and debug shell user */
 #define AID_CACHE         2001  /* cache access */
 #define AID_DIAG          2002  /* access to diagnostic resources */
@@ -80,6 +84,23 @@
 #define AID_QCOM_DIAG     3009  /* can read/write /dev/diag */
 
 #if defined(MOTOROLA_UIDS)
+#define AID_MOT_OSH       5000  /* OSH */
+#define AID_MOT_ACCY      9000  /* access to accessory */
+#define AID_MOT_PWRIC     9001  /* power IC */
+#define AID_MOT_USB       9002  /* mot usb */
+#define AID_MOT_DRM       9003  /* can access DRM resource. */
+#define AID_MOT_TCMD      9004  /* mot_tcmd */
+#define AID_MOT_SEC_RTC   9005  /* mot cpcap rtc */
+#define AID_MOT_TOMBSTONE 9006
+#define AID_MOT_TPAPI     9007  /* mot_tpapi */
+#define AID_MOT_SECCLKD   9008  /* mot_secclkd */
+#define AID_MOT_WHISPER   9009  /* Whisper Protocol access */
+#define AID_MOT_CAIF      9010  /* can create CAIF sockets */
+#define AID_MOT_DLNA      9011  /*DLNA native */
+#define AID_MOT_IRPORT    9012  /* IRRC devices */
+#endif
+
+#ifdef USE_MOTOROLA_USERS
 #define AID_MOT_OSH       5000  /* OSH */
 #define AID_MOT_ACCY      9000  /* access to accessory */
 #define AID_MOT_PWRIC     9001  /* power IC */
@@ -133,6 +154,9 @@ static const struct android_id_info android_ids[] = {
     { "mdnsr",     AID_MDNSR, },
     { "nfc",       AID_NFC, },
     { "drmrpc",    AID_DRMRPC, },
+#ifdef OMAP_ENHANCEMENT
+    { "fmradio",   AID_FMRADIO, },
+#endif
     { "shell",     AID_SHELL, },
     { "cache",     AID_CACHE, },
     { "diag",      AID_DIAG, },
@@ -153,7 +177,7 @@ static const struct android_id_info android_ids[] = {
     { "net_bw_acct", AID_NET_BW_ACCT, },
     { "qcom_oncrpc", AID_QCOM_ONCRPC, },
     { "qcom_diag", AID_QCOM_DIAG, },
-#if defined(MOTOROLA_UIDS)
+#ifdef USE_MOTOROLA_USERS
     { "mot_osh",   AID_MOT_OSH, },
     { "mot_accy",  AID_MOT_ACCY, },
     { "mot_pwric", AID_MOT_PWRIC, },
@@ -201,7 +225,7 @@ static struct fs_path_config android_dirs[] = {
     { 00770, AID_DHCP,   AID_DHCP,   "data/misc/dhcp" },
     { 00775, AID_MEDIA_RW, AID_MEDIA_RW, "data/media" },
     { 00775, AID_MEDIA_RW, AID_MEDIA_RW, "data/media/Music" },
-#if defined(MOTOROLA_UIDS)
+#ifdef USE_MOTOROLA_USERS
     { 00777, AID_SYSTEM, AID_SYSTEM, "data/anr" },
     { 00771, AID_MOT_TCMD,  AID_SHELL,  "data/local/12m/batch" },
     { 00771, AID_MOT_TCMD,  AID_SHELL,  "data/local/12m" },
@@ -247,7 +271,7 @@ static struct fs_path_config android_files[] = {
     { 00555, AID_ROOT,      AID_ROOT,      "system/etc/ppp/*" },
     { 00555, AID_ROOT,      AID_ROOT,      "system/etc/rc.*" },
     { 00755, AID_ROOT,      AID_ROOT,      "system/addon.d/*" },
-#if defined(MOTOROLA_UIDS)
+#ifdef USE_MOTOROLA_USERS
     { 00755, AID_ROOT,      AID_SHELL,     "system/etc/12m_files_copy.sh" },
     { 00544, AID_ROOT,      AID_SHELL,     "system/etc/install-recovery.sh" },
     { 00660, AID_RADIO,     AID_RADIO,     "data/logger/bplogd.clog" },
@@ -278,6 +302,9 @@ static struct fs_path_config android_files[] = {
 		 * in user builds. */
     { 06750, AID_ROOT,      AID_SHELL,     "system/bin/run-as" },
     { 06750, AID_ROOT,      AID_SYSTEM,    "system/bin/rebootcmd" },
+    { 00750, AID_ROOT,      AID_SYSTEM,    "system/bin/tc" },
+    { 00750, AID_ROOT,      AID_SYSTEM,    "system/bin/iptables" },
+
     { 00755, AID_ROOT,      AID_SHELL,     "system/bin/*" },
     { 00755, AID_ROOT,      AID_ROOT,      "system/lib/valgrind/*" },
     { 00755, AID_ROOT,      AID_SHELL,     "system/xbin/*" },
