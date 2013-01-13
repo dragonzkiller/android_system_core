@@ -75,8 +75,9 @@ struct svcenvinfo {
 #define SVC_RESTART     0x100 /* Use to safely restart (stop, wait, start) a service */
 
 #ifdef USE_MOTOROLA_CODE
-#define NR_SVC_SUPP_GIDS 26    /* number of supplementary groups */
+#define NR_SVC_SUPP_GIDS 26    /* number of supplementary groups (26 for Moto) */
 #else
+#ifndef NR_SVC_SUPP_GIDS
 #define NR_SVC_SUPP_GIDS 12    /* twelve supplementary groups */
 #endif
 
